@@ -1,3 +1,26 @@
+/*
+===============================================================================
+DDL Script: Create Bronze Tables
+===============================================================================
+Script Purpose:
+    This script initializes the schema for the Bronze Layer (Data Ingestion) 
+    by creating 6 core source tables within the 'datawarehouse_bronze' database.
+    Existing tables will be dropped and recreated to ensure a clean state.
+
+Scope of Tables:
+    1. bz_crm_cust_info     - Customer master data from CRM system.
+    2. bz_crm_prd_info      - Product master data with history tracking from CRM system
+    3. bz_crm_sales_details - Sales order transactions and line details from CRM system.
+    4. bz_erp_CUST_AZ12     - Customer demographics (birthdate, gender) from ERP system.
+    5. bz_erp_LOC_A101      - Customer country mapping from ERP system.
+    6. bz_erp_PX_CAT_G1V2   - Product category and sub-category hierarchy from ERP system.
+
+WARNING:
+    Running this script will DROP existing tables and PERMANENTLY DELETE all 
+    contained data. Ensure data is backed up or can be re-ingested from source CSVs.
+===============================================================================
+*/
+
 DROP TABLE IF EXISTS datawarehouse_bronze.bz_crm_cust_info;
 CREATE TABLE datawarehouse_bronze.bz_crm_cust_info (
 	cst_id INT,
