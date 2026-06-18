@@ -13,9 +13,9 @@ Parameters:
 	This script does not accept any parameters or return any values.
 
 Environment Configuration: 
-This script uses MySQL 'LOAD DATA INFILE' to import raw dataset files.
-Based on your local setup, please update the paths below to match your 
-MySQL 'secure_file_priv' directory.
+	This script uses MySQL 'LOAD DATA INFILE' to import raw dataset files.
+	Based on your local setup, please update the paths below to match your 
+	MySQL 'secure_file_priv' directory.
 
 - Windows Default: 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/datasets'
 ===============================================================================
