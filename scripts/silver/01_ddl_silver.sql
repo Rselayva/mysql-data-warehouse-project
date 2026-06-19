@@ -14,8 +14,8 @@ WARNING:
 ===============================================================================
 */
 
-DROP TABLE IF EXISTS datawarehouse_silver.bz_crm_cust_info;
-CREATE TABLE datawarehouse_silver.bz_crm_cust_info (
+DROP TABLE IF EXISTS datawarehouse_silver.slv_crm_cust_info;
+CREATE TABLE datawarehouse_silver.slv_crm_cust_info (
 	cst_id INT,
 	cst_key VARCHAR(50),
 	cst_firstname VARCHAR(50),
@@ -26,8 +26,8 @@ CREATE TABLE datawarehouse_silver.bz_crm_cust_info (
     dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS datawarehouse_silver.bz_crm_prd_info;
-CREATE TABLE datawarehouse_silver.bz_crm_prd_info (
+DROP TABLE IF EXISTS datawarehouse_silver.slv_crm_prd_info;
+CREATE TABLE datawarehouse_silver.slv_crm_prd_info (
 	prd_id INT,
 	prd_key VARCHAR(50),
 	prd_nm VARCHAR(50),
@@ -38,8 +38,8 @@ CREATE TABLE datawarehouse_silver.bz_crm_prd_info (
 	dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS datawarehouse_silver.bz_crm_sales_details;
-CREATE TABLE datawarehouse_silver.bz_crm_sales_details (
+DROP TABLE IF EXISTS datawarehouse_silver.slv_crm_sales_details;
+CREATE TABLE datawarehouse_silver.slv_crm_sales_details (
 	sls_ord_num VARCHAR(50),
 	sls_prd_key VARCHAR(50),
 	sls_cust_id INT,
@@ -52,23 +52,23 @@ CREATE TABLE datawarehouse_silver.bz_crm_sales_details (
 	dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS datawarehouse_silver.bz_erp_CUST_AZ12;
-CREATE TABLE datawarehouse_silver.bz_erp_CUST_AZ12 (
+DROP TABLE IF EXISTS datawarehouse_silver.slv_erp_CUST_AZ12;
+CREATE TABLE datawarehouse_silver.slv_erp_CUST_AZ12 (
 	cid VARCHAR(50),
 	bdate DATE,
 	gen VARCHAR(50),
 	dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS datawarehouse_silver.bz_erp_LOC_A101;
-CREATE TABLE datawarehouse_silver.bz_erp_LOC_A101 (
+DROP TABLE IF EXISTS datawarehouse_silver.slv_erp_LOC_A101;
+CREATE TABLE datawarehouse_silver.slv_erp_LOC_A101 (
 	cid VARCHAR(50),
 	cntry VARCHAR(50),
 	dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS datawarehouse_silver.bz_erp_PX_CAT_G1V2;
-CREATE TABLE datawarehouse_silver.bz_erp_PX_CAT_G1V2 (
+DROP TABLE IF EXISTS datawarehouse_silver.slv_erp_PX_CAT_G1V2;
+CREATE TABLE datawarehouse_silver.slv_erp_PX_CAT_G1V2 (
 	id VARCHAR(50),
 	cat VARCHAR(50),
 	subcat VARCHAR(50),
