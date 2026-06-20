@@ -1,4 +1,6 @@
+-- =============================================================
 -- Load datawarehouse_silver.slv_crm_cust_info
+-- =============================================================
 TRUNCATE TABLE datawarehouse_silver.slv_crm_cust_info;
 INSERT INTO datawarehouse_silver.slv_crm_cust_info (
 	cst_id,
@@ -38,3 +40,66 @@ FROM (
     WHERE cst_id IS NOT NULL
 ) t 
 WHERE flag_test = 1; -- Select the most recent record for each customer
+
+-- =============================================================
+-- Load datawarehouse_silver.slv_crm_prd_info
+-- =============================================================
+TRUNCATE TABLE datawarehouse_silver.slv_crm_prd_info;
+INSERT INTO datawarehouse_silver.slv_crm_prd_info (
+	prd_id,
+    cat_id,
+    prd_key,
+    prd_nm,
+    prd_cost,
+    prd_line,
+    prd_start_dt,
+    prd_end_dt
+)
+SELECT
+	prd_id,
+    
+    -- 1. Extract category ID
+    REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS cat_id,
+    
+    -- 2. Extract product key
+    SUBSTRING(prd_key, 7, LENGTH(prd_key)) AS prd_key,
+    
+    prd_nm,
+    IFNULL(prd_cost, 0) AS prd_cost,
+    
+    -- 3. Map product line codes to descriptive values
+    CASE UPPER(TRIM(prd_line))
+		 WHEN 'M' THEN 'Mountain'
+		 WHEN 'R' THEN 'Road'
+		 WHEN 'S' THEN 'Other Sales'
+		 WHEN 'T' THEN 'Touring'
+         ELSE 'n/a'
+	END AS prd_line,
+    
+    prd_start_dt,
+    
+    -- 4. Calculate end date as one day before the next start date
+    DATE_SUB(
+		LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt), 
+		INTERVAL 1 DAY
+	) AS prd_end_dt
+FROM datawarehouse_bronze.bz_crm_prd_info;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

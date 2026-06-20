@@ -29,6 +29,7 @@ CREATE TABLE datawarehouse_silver.slv_crm_cust_info (
 DROP TABLE IF EXISTS datawarehouse_silver.slv_crm_prd_info;
 CREATE TABLE datawarehouse_silver.slv_crm_prd_info (
 	prd_id INT,
+    cat_id VARCHAR(50),
 	prd_key VARCHAR(50),
 	prd_nm VARCHAR(50),
 	prd_cost INT,
