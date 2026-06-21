@@ -53,17 +53,48 @@ SELECT DISTINCT
 	prd_line
 FROM datawarehouse_silver.slv_crm_prd_info;
 
--- Check for Invalid Date Orders (Start Date > End Date)
+-- Check for Invalid Date Orders (End Date Earlier than Start Date)
 -- Expectation: No Result
 SELECT
 	*
 FROM datawarehouse_silver.slv_crm_prd_info
 WHERE prd_end_dt < prd_start_dt;
 
+-- =============================================================
+-- Checking slv_crm_prd_info
+-- =============================================================
+-- Check for Invalid Date
+-- Expectation: No Result
+SELECT
+	sls_due_dt
+FROM datawarehouse_silver.slv_crm_sales_details
+WHERE sls_due_dt <= 0
+   OR sls_due_dt > '20500101'
+   OR sls_due_dt < '19000101';
 
+-- Check for Invalid Date Orders (Shipping Date or Due Date Earlier than Order Date)
+-- Expectation: No Invalid Date 
+SELECT
+	*
+FROM datawarehouse_silver.slv_crm_sales_details
+WHERE sls_order_dt > sls_ship_dt 
+   OR sls_order_dt > sls_due_dt;
 
-
-
+-- Check Data Consistency: Between Sales, Quantity, and Price
+-- Expectation: No Result
+SELECT DISTINCT
+	sls_sales,
+    sls_quantity,
+    sls_price
+FROM datawarehouse_silver.slv_crm_sales_details
+WHERE sls_sales != sls_quantity * sls_price
+   OR sls_sales IS NULL 
+   OR sls_quantity IS NULL 
+   OR sls_price IS NULL
+   OR sls_sales <= 0 
+   OR sls_quantity <= 0 
+   OR sls_price <= 0
+ORDER BY sls_sales, sls_quantity, sls_price;
 
 
 
