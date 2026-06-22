@@ -1,3 +1,24 @@
+/*
+===============================================================================
+Load Data: Load Silver Layer (Bronze -> Silver)
+===============================================================================
+Script Purpose:
+    This script executes the ETL (Extract, Transform, Load) pipeline to 
+    populate the 'datawarehouse_silver' database from the 'datawarehouse_bronze' database.
+
+Actions Performed:
+        - Truncates existing Silver tables to ensure a fresh reload.
+        - Deduplicates operational records to keep only the latest version.
+        - Cleanses data quality issues (e.g., trims whitespace, standardizes gender/countries).
+        - Handles invalid/future dates and protects against division-by-zero errors.
+        - Inserts the fully transformed, production-ready data into Silver tables.
+
+Parameters:
+    None. 
+	This script runs as a monolithic batch process.
+===============================================================================
+*/
+
 -- =============================================================
 -- Load datawarehouse_silver.slv_crm_cust_info
 -- =============================================================

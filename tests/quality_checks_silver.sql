@@ -1,3 +1,24 @@
+/*
+===============================================================================
+Quality Checks
+===============================================================================
+Script Purpose:
+    This script performs various quality checks for data consistency, accuracy, 
+    and standardization across the 'datawarehouse_silver' database. 
+    
+    It executes validation queries targeting:
+    - Null or duplicate primary keys.
+    - Unwanted spaces in string fields.
+    - Data standardization and consistency.
+    - Invalid date ranges and orders.
+    - Data consistency between related fields.
+
+Usage Notes:
+    - Run these checks after data loading Silver Layer.
+    - Any returned rows indicate data quality issues that require investigation and resolution.
+===============================================================================
+*/
+
 -- =============================================================
 -- Checking datawarehouse_silver.slv_crm_cust_info
 -- =============================================================
