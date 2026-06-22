@@ -113,8 +113,14 @@ SELECT DISTINCT
 	gen
 FROM datawarehouse_silver.slv_erp_cust_az12;
 
-
-
+-- =============================================================
+-- Checking slv_erp_loc_a101
+-- =============================================================
+-- Data Standardization & Consistency
+SELECT DISTINCT
+	cntry
+FROM datawarehouse_silver.slv_erp_loc_a101
+ORDER BY cntry;
 
 
 
