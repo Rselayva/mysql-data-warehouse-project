@@ -193,13 +193,19 @@ SELECT
 	END AS cntry
 FROM datawarehouse_bronze.bz_erp_loc_a101;
 
-
-
-
-
-
-
-
-
-
-
+-- =============================================================
+-- Load datawarehouse_silver.slv_erp_px_cat_g1v2
+-- =============================================================
+TRUNCATE TABLE datawarehouse_silver.slv_erp_px_cat_g1v2;
+INSERT INTO datawarehouse_silver.slv_erp_px_cat_g1v2 (
+	id,
+    cat,
+    subcat,
+    maintenance
+)
+SELECT
+	id,
+	cat,
+	subcat,
+	maintenance
+FROM datawarehouse_bronze.bz_erp_px_cat_g1v2;

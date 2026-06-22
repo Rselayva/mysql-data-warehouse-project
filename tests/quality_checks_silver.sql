@@ -1,5 +1,5 @@
 -- =============================================================
--- Checking slv_crm_cust_info
+-- Checking datawarehouse_silver.slv_crm_cust_info
 -- =============================================================
 -- Check For Nulls or Duplicates in Primary Key
 -- Expectation: No Result
@@ -23,7 +23,7 @@ SELECT DISTINCT
 FROM datawarehouse_silver.slv_crm_cust_info;
 
 -- =============================================================
--- Checking slv_crm_prd_info
+-- Checking datawarehouse_silver.slv_crm_prd_info
 -- =============================================================
 -- Check For Nulls or Duplicates in Primary Key
 -- Expectation: No Result
@@ -61,7 +61,7 @@ FROM datawarehouse_silver.slv_crm_prd_info
 WHERE prd_end_dt < prd_start_dt;
 
 -- =============================================================
--- Checking slv_crm_prd_info
+-- Checking datawarehouse_silver.slv_crm_prd_info
 -- =============================================================
 -- Check for Invalid Date
 -- Expectation: No Result
@@ -97,7 +97,7 @@ WHERE sls_sales != sls_quantity * sls_price
 ORDER BY sls_sales, sls_quantity, sls_price;
 
 -- =============================================================
--- Checking slv_erp_cust_az12
+-- Checking datawarehouse_silver.slv_erp_cust_az12
 -- =============================================================
 -- Identify Out-of-Range Birth Dates
 -- Removed Future Dates Only
@@ -114,7 +114,7 @@ SELECT DISTINCT
 FROM datawarehouse_silver.slv_erp_cust_az12;
 
 -- =============================================================
--- Checking slv_erp_loc_a101
+-- Checking datawarehouse_silver.slv_erp_loc_a101
 -- =============================================================
 -- Data Standardization & Consistency
 SELECT DISTINCT
@@ -122,14 +122,22 @@ SELECT DISTINCT
 FROM datawarehouse_silver.slv_erp_loc_a101
 ORDER BY cntry;
 
+-- =============================================================
+-- Checking datawarehouse_silver.slv_erp_px_cat_g1v2
+-- =============================================================
+-- Check for Unwanted Spaces
+-- Expectation: No Result
+SELECT 
+    * 
+FROM datawarehouse_silver.slv_erp_px_cat_g1v2
+WHERE cat != TRIM(cat) 
+   OR subcat != TRIM(subcat) 
+   OR maintenance != TRIM(maintenance);
 
-
-
-
-
-
-
-
+-- Data Standardization & Consistency
+SELECT DISTINCT 
+    maintenance 
+FROM datawarehouse_silver.slv_erp_px_cat_g1v2;
 
 
 
