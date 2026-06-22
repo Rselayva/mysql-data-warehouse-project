@@ -3,7 +3,7 @@
 Load Data: Load Bronze Layer (Source -> Bronze)
 ===============================================================================
 Script Purpose:
-    This script loads data into the 'bronze' schema from external CSV files. 
+    This script loads data into the 'datawarehouse_bronze' database from external CSV files. 
     It performs the following actions:
     - Truncates the bronze tables before loading data.
     - Uses the `LOAD DATA INFILE` command to load data from CSV Files to bronze tables.
