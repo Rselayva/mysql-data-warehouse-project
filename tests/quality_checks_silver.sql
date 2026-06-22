@@ -96,6 +96,30 @@ WHERE sls_sales != sls_quantity * sls_price
    OR sls_price <= 0
 ORDER BY sls_sales, sls_quantity, sls_price;
 
+-- =============================================================
+-- Checking slv_erp_cust_az12
+-- =============================================================
+-- Identify Out-of-Range Birth Dates
+-- Removed Future Dates Only
+SELECT
+	bdate
+FROM datawarehouse_silver.slv_erp_cust_az12
+WHERE bdate <= 0
+OR    bdate > CURDATE()
+OR    bdate < '1926-01-01';
+
+-- Data Standardization & Consistency
+SELECT DISTINCT 
+	gen
+FROM datawarehouse_silver.slv_erp_cust_az12;
+
+
+
+
+
+
+
+
 
 
 

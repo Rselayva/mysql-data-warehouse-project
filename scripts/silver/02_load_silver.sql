@@ -64,7 +64,7 @@ SELECT
     REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS cat_id,
     
     -- 2. Extract product key
-    SUBSTRING(prd_key, 7, LENGTH(prd_key)) AS prd_key,
+    SUBSTRING(prd_key, 7) AS prd_key,
     
     prd_nm,
     IFNULL(prd_cost, 0) AS prd_cost,
@@ -142,6 +142,37 @@ SELECT
         ELSE sls_price
     END AS sls_price
 FROM datawarehouse_bronze.bz_crm_sales_details;
+
+-- =============================================================
+-- Load datawarehouse_silver.slv_erp_cust_az12
+-- =============================================================
+TRUNCATE TABLE datawarehouse_silver.slv_erp_cust_az12;
+INSERT INTO datawarehouse_silver.slv_erp_cust_az12 (
+	cid,
+    bdate,
+    gen
+)
+SELECT
+	-- 1. Remove 'NAS' prefix if present
+    CASE
+		WHEN cid LIKE 'NAS%' THEN SUBSTRING(cid, 4)
+        ELSE cid
+	END AS cid,
+    
+    -- 2. Set future birthdates to NULL
+    CASE
+		WHEN bdate > CURDATE() THEN NULL
+        ELSE bdate
+	END AS bdate,
+    
+    -- 3. Normalize gender values to readable format and handle unknown cases
+    CASE 
+		WHEN UPPER(TRIM(gen)) IN ('MALE', 'M') THEN 'Male'
+        WHEN UPPER(TRIM(gen)) IN ('FEMALE', 'F') THEN 'Female'
+        ELSE 'n/a'
+	END AS gen
+FROM datawarehouse_bronze.bz_erp_cust_az12;
+
 
 
 
