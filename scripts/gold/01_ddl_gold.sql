@@ -51,24 +51,26 @@ ON pi.cat_id = pc.id
 -- 2. Filter out historical data to keep only the currently active products
 WHERE pi.prd_end_dt IS NULL;
 
+-- =============================================================
+-- Create Dimension: datawarehouse_gold.fact_sales
+-- =============================================================
+CREATE OR REPLACE VIEW datawarehouse_gold.fact_sales AS
+SELECT 
+	sd.sls_ord_num AS order_number,
+    pr.product_key,
+	cu.customer_key,
+	sd.sls_order_dt AS order_date,
+	sd.sls_ship_dt AS shipping_date,
+	sd.sls_due_dt AS due_date,
+	sd.sls_sales AS sales_amount,
+	sd.sls_quantity AS quantity,
+	sd.sls_price AS price
+FROM datawarehouse_silver.slv_crm_sales_details sd
 
+-- 1. JOIN the Gold product view using the unique product number
+LEFT JOIN datawarehouse_gold.dim_products pr
+ON sd.sls_prd_key = pr.product_number
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- 2. JOIN the Gold customer view using the unique customer ID
+LEFT JOIN datawarehouse_gold.dim_customer cu
+ON sd.sls_cust_id = cu.customer_id;
