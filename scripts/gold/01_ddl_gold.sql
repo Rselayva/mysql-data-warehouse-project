@@ -1,7 +1,7 @@
 -- =============================================================
 -- Create Dimension: datawarehouse_gold.dim_customers
 -- =============================================================
-CREATE OR REPLACE VIEW datawarehouse_gold.dim_customer AS
+CREATE OR REPLACE VIEW datawarehouse_gold.dim_customers AS
 SELECT
 	-- 1. Generate a unique Surrogate Key for the Gold Dimension Table
 	ROW_NUMBER() OVER (ORDER BY ci.cst_id, ci.cst_key) AS customer_key,
@@ -72,5 +72,5 @@ LEFT JOIN datawarehouse_gold.dim_products pr
 ON sd.sls_prd_key = pr.product_number
 
 -- 2. JOIN the Gold customer view using the unique customer ID
-LEFT JOIN datawarehouse_gold.dim_customer cu
+LEFT JOIN datawarehouse_gold.dim_customers cu
 ON sd.sls_cust_id = cu.customer_id;
